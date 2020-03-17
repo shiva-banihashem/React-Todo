@@ -5,7 +5,8 @@ class TodoForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      itemName: ""
+      itemName: "",
+      itemSearch:""
     };
   }
 
@@ -32,12 +33,28 @@ class TodoForm extends React.Component {
       this.props.clearCompleted();
   }
   
+  searchOnChange = (e) => {
+    this.setState({
+        itemSearch: e.target.value
+      });
+  }
+
+  let filteredList = workerList.filter(worker =>
+    worker.fullName.toLowerCase().indexOf(workerSearch.toLowerCase()) !== -1)
+  
 
   render() {
     console.log("rendering form");
     return (
       <form onSubmit={this.handleSubmit}>
         <label htmlFor="item">Task to be added:</label>
+        <input className="inputSearch"
+            type="text"
+            placeholder="Search Todo Tasks..." 
+            value={workerSearch}
+            onChange={searchOnChange}
+          
+          />
         <input
           onChange={this.handleChanges}
           type="text"
@@ -55,3 +72,4 @@ class TodoForm extends React.Component {
 }
 
 export default TodoForm;
+
